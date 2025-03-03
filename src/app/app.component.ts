@@ -18,15 +18,14 @@ declare global {
 export class AppComponent {
   title = 'I-zara';
   constructor(private router: Router) {
-    console.log(localStorage.getItem('theme'));
-    if (localStorage.getItem('theme') === 'light'){
-      document.documentElement.classList.toggle(
-        'dark', false
-      )
-    }
-    else{
+    if (localStorage.getItem('theme') === 'dark'){
       document.documentElement.classList.toggle(
         'dark',
+      )
+    }
+    else {
+      document.documentElement.classList.toggle(
+        'dark', false
       )
     }
   }
