@@ -1,1 +1,45 @@
-<p>dashboard works!</p>
+<div class="w-full max-w-[1200px] px-4 mx-auto">
+  <div class="content grid grid-cols-1 md:grid-cols-2 flex-row ">
+    <article class=" z-10 text-dark dark:text-white flex items-center justify-center">
+      <div>
+        <form class="mt-4 shadow-xl rounded-xl px-4 py-10 w-[90svw] sm:w-[400px] bg-white dark:bg-neutral-900">
+          <div class="">
+            <div class="w-full">
+              <div class="flex items-center justify-center w-full">
+                <div class="relative w-full">
+                  <input
+                    id="titre"
+                    name="titre"
+                    type="text"
+                    placeholder=""
+                    class="border-b w-full border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit"
+                  />
+                  <label
+                    for="titre"
+                    class="absolute -top-4 text-xs left-0 cursor-text peer-focus:text-xs peer-focus:-top-4 transition-all peer-focus:text-blue-700 peer-placeholder-shown:top-1 peer-placeholder-shown:text-sm"
+                  >
+                    Titre
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label for="file" class="w-full py-10 flex bg-[#3767ea]/15 text-[#3767ea]  justify-center items-center cursor-pointer rounded-lg mt-4">
+            <div class="flex items-center justify-center flex-col">
+              <span class="icon-[material-symbols--add-circle] size-14"></span>
+              <div class="flex items-center justify-center font-extralight mt-2">
+                <span>Click to upload image</span>
+              </div>
+            </div>
+            <input id="file" type="file" class="hidden" accept="image/*">
+          </label>
+          <input type="submit" value="Envoyer" class="w-full mt-4 bg-[#3767ea] text-white  justify-center items-center cursor-pointer rounded-lg px-4 py-2"/>
+        </form>
+      </div>
+    </article>
+    <div class="flex items-center justify-center">
+      <img src="assets/image.svg" alt="" class="w-full md:w-[40vw]"/>
+    </div>
+  </div>
+  <app-liste></app-liste>
+</div>

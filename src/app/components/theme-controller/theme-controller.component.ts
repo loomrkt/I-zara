@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class ThemeControllerComponent {
-
+  setTheme( theme: string ) {
+    localStorage.setItem( 'theme', theme );
+  }
 }

@@ -1,0 +1,38 @@
+<header class=" flex sm:justify-start sm:flex-nowrap w-full text-sm py-3 z-50">
+  <nav class="max-w-[1200px] px-4 mx-auto w-full flex items-center justify-between">
+    <a class="w-fit flex items-center gap-3 font-semibold text-xl text-black focus:outline-none focus:opacity-80 dark:text-white" href="#" aria-label="Brand">
+      <div class="hidden dark:block">
+        <img ngSrc="assets/logoD.png" alt="logo" class="h-10 w-auto" height="216" width="216">
+      </div>
+      <div class="dark:hidden">
+        <img ngSrc="assets/logoL.png" alt="logo" class="h-10 w-auto" height="216" width="216">
+      </div>
+      <span class="hidden sm:block">I-Zara</span>
+    </a>
+    <div class="flex items-center gap-4 sm:mt-0 w-fit">
+    <app-theme-controller></app-theme-controller>
+      <div class="hs-dropdown relative inline-flex">
+        <button id="hs-dropdown-custom-trigger" type="button" class="hs-dropdown-toggle text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+          <img class="w-8 h-auto rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Avatar">
+        </button>
+
+        <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 dark:bg-neutral-800 dark:border dark:border-neutral-700" role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-custom-trigger">
+          <div class="p-4 space-y-4">
+            <div class="shrink-0 group block">
+              <div class="flex items-center">
+                <img class="w-8 h-auto rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Avatar">
+                <div class="ms-3">
+                  <p class="text-sm font-medium text-dark dark:text-white">mark&#64;gmail.com</p>
+                </div>
+              </div>
+            </div>
+            <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-white bg-red-600/80 dark:bg-red-500/20" href="#">
+              <span class="icon-[material-symbols--logout-rounded]"></span>
+              log out
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

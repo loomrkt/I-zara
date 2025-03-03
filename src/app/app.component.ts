@@ -18,7 +18,19 @@ declare global {
 export class AppComponent {
   title = 'I-zara';
   constructor(private router: Router) {
+    console.log(localStorage.getItem('theme'));
+    if (localStorage.getItem('theme') === 'light'){
+      document.documentElement.classList.toggle(
+        'dark', false
+      )
+    }
+    else{
+      document.documentElement.classList.toggle(
+        'dark',
+      )
+    }
   }
+
 
   ngOnInit() {
     this.router.events.subscribe((event: Event) => {
