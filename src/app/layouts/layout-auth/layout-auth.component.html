@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<main class="flex items-center justify-center w-screen h-screen bg-gray-100">
+  <div class="w-full h-full">
+    <div class="flex bg-white h-full shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+      <div class="hidden lg:block lg:w-1/2 bg-cover bg-center"
+           style="background-image:url('assets/images/bgAuth.jpeg')">
+      </div>
+      <div class="w-full p-8 lg:w-1/2 my-auto">
+        <div class="flex items-center justify-center mb-2">
+          <img ngSrc="assets/logoL.png" height="216" width="216" class="size-12" alt="brand"/>
+          <h2 class="text-2xl text-gray-800 font-bold ms-2">I-Zara</h2>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</main>
