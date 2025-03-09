@@ -12,6 +12,7 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {DownloadComponent} from './pages/download/download.component';
 
 import {authGuard} from './guard/auth/auth.guard';
+import { noAuthGuard } from './guard/noAuth/noAuth.guard';
 
 export const routes: Routes = [
   {
@@ -22,12 +23,12 @@ export const routes: Routes = [
       {
         path: '',
         component: LoginComponent,
-        canActivate: [authGuard(false)],
+        canActivate: [noAuthGuard],
       },
       {
         path: 'register',
         component: RegisterComponent,
-        canActivate: [authGuard(false)],
+        canActivate: [noAuthGuard],
       },
     ],
   },
@@ -39,7 +40,7 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         title: 'IZara - Dashboard',
-        canActivate: [authGuard(true)],
+        canActivate: [authGuard],
       },
     ],
   },
