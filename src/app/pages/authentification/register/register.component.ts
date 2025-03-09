@@ -67,7 +67,7 @@ export class RegisterComponent {
               escapeMarkup: false,
             }).showToast();
             console.log(response);
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/']);
           },
           error: (error) => {
             this.errorMessage = error.message;
