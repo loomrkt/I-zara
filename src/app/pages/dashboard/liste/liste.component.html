@@ -2,28 +2,51 @@
   <div class="-m-1.5 overflow-x-auto">
     <div class="p-1.5 min-w-full inline-block align-middle">
       <div class="overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-          <thead>
-          <tr>
-            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Titre</th>
-            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Fichier</th>
-            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Expiration dans</th>
-            <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Action</th>
-          </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-            @for (item of liste; track item.id){
+        
+        <div class="flex flex-col">
+          <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+              <div class="overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Titre</th>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Lien</th>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Taille</th>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500 max-w-7"><span class="md:hidden inline-block">Exp</span><span class="hidden md:inline-block">Expiration dans</span></th>
+                      <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+            @for (item of liste().slice().reverse(); track item.id){
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{{item.titre}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200 hover:text-blue-600"><a href="{{item.fichier}}" target="_blank">{{item.fichier}}</a></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{{item.estimation}} jours</td>
-                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                  <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 dark:text-neutral-500">{{item.titre}}</td>
+                <td class="relative px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-500 hover:text-blue-600 max-w-6 ">
+                  <div class="overflow-hidden">
+                    <a [href]="getDownloadUrl(item)" target="_blank">{{ getDownloadUrl(item) }}</a>
+                    <button type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-lg text-gray-500 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:text-neutral-400 absolute right-0 bg-white dark:bg-gray-950" 
+                      [cdkCopyToClipboard]="getDownloadUrl(item)">
+                      <span class="icon-[material-symbols--content-copy] size-5 hover:text-blue-700"></span>
+                    </button>
+                  </div>
                 </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-500">{{item.taille | bytesConverter }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-neutral-500 max-w-7">
+                  {{ item.expiration_date | ExpirationDate }} <span class="md:hidden inline-block">j</span> <span class="hidden md:inline-block">jours</span> 
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                  <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400" (click)="deleteFile(item.id)">Delete</button>
+                </td>
+              </tr>
+            }
+            @if (liste().length === 0) {
+              <tr>
+                <td class="py-10 whitespace-nowrap text-sm font-medium text-gray-500 dark:text-neutral-500 text-center" colspan="5">Aucun fichier uploader</td>
               </tr>
             }
           </tbody>
         </table>
+        
       </div>
     </div>
   </div>

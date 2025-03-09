@@ -21,13 +21,15 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [authGuard(false)],
       },
       {
         path: 'register',
-        component: RegisterComponent
-      }
-    ]
+        component: RegisterComponent,
+        canActivate: [authGuard(false)],
+      },
+    ],
   },
   {
     path: '',
@@ -37,9 +39,9 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         title: 'IZara - Dashboard',
-        canActivate: [authGuard],
-      }
-    ]
+        canActivate: [authGuard(true)],
+      },
+    ],
   },
   {
     path: '',
@@ -48,8 +50,8 @@ export const routes: Routes = [
     children: [
       {
         path: 'download',
-        component: DownloadComponent
-      }
-    ]
-  }
+        component: DownloadComponent,
+      },
+    ],
+  },
 ];
