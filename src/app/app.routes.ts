@@ -19,16 +19,15 @@ export const routes: Routes = [
     path: '',
     component: LayoutAuthComponent,
     title: 'IZara - Authentification',
+    canActivate: [noAuthGuard],
     children: [
       {
         path: '',
         component: LoginComponent,
-        canActivate: [noAuthGuard],
       },
       {
         path: 'register',
         component: RegisterComponent,
-        canActivate: [noAuthGuard],
       },
     ],
   },
