@@ -12,6 +12,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import Toastify from 'toastify-js';
 import { BytesConverterPipe } from '../../../pipes/bytesConverter.pipe';
 import { ExpirationDatePipe } from '../../../pipes/expirationDate.pipe';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-liste',
@@ -48,6 +49,6 @@ export class ListeComponent {
   }
 
   getDownloadUrl(item: any): string {
-    return 'http://localhost:3000/files/' + item.short_id;
+    return `${environment.backendUrl}/files/${item.short_id}`;
   }
 }
