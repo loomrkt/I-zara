@@ -1,3 +1,3 @@
 export const environment = {
-  backendUrl: 'https://izara-back-node-ts.onrender.com',
+  backendUrl: 'http://localhost:3000',
 };
