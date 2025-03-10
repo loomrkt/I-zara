@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
+  BehaviorSubject,
   catchError,
+  map,
   Observable,
   switchMap,
   takeWhile,
+  tap,
   throwError,
   timer,
 } from 'rxjs';
@@ -15,8 +18,12 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   private apiUrl = environment.backendUrl; // Assurez-vous d'avoir défini l'URL de votre API
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable(); // Observable pour l’état de connexion
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.checkAuth().subscribe();
+  }
   // Enregistrer un nouvel utilisateur
   register(email: string, password: string): Observable<any> {
     return this.http
@@ -38,7 +45,10 @@ export class AuthService {
         { email, password },
         { withCredentials: true }
       )
-      .pipe(catchError((error) => this.handleError(error)));
+      .pipe(
+        tap(() => this.isAuthenticatedSubject.next(true)),
+        catchError((error) => this.handleError(error))
+      );
   }
 
   // Se connecter via Google
@@ -48,18 +58,24 @@ export class AuthService {
 
   // Se déconnecter
   logout(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/auth/logout`, {
-      withCredentials: true,
-    });
+    return this.http
+      .get(`${this.apiUrl}/auth/logout`, { withCredentials: true })
+      .pipe(tap(() => this.isAuthenticatedSubject.next(false)));
   }
 
   // Vérifier si l'utilisateur est authentifié
   checkAuth(): Observable<any> {
     return this.http
-      .get(`${this.apiUrl}/auth/checkAuth`, {
-        withCredentials: true,
-      })
-      .pipe(catchError((error) => this.handleErrorCheckAuth(error)));
+      .get(`${this.apiUrl}/auth/checkAuth`, { withCredentials: true })
+      .pipe(
+        tap((response: any) => {
+          this.isAuthenticatedSubject.next(response.authenticated);
+        }),
+        catchError(() => {
+          this.isAuthenticatedSubject.next(false);
+          return throwError(() => new Error('Erreur de connexion'));
+        })
+      );
   }
 
   // Fonction de gestion des erreurs
