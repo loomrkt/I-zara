@@ -54,7 +54,7 @@ export class DashboardComponent {
       const file = this.filesForm.get('file')?.value;
       this.toastifyInstance = Toastify({
         text: `<div class="flex justify-start items-center gap-3">
-            <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+            <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
               <span class="icon-[line-md--uploading-loop] size-6"></span>
             </div>
             Envoye en cours...</div>`,
@@ -68,8 +68,8 @@ export class DashboardComponent {
         (response) => {
           Toastify({
             text: `<div class="flex justify-start items-center gap-3">
-          <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
-            <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition]"></span>
+          <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+            <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition] size-6"></span>
           </div> 
           Envoye effecuter avec succes!
           </div>`,
@@ -88,7 +88,7 @@ export class DashboardComponent {
           this.toastifyInstance.hideToast();
           Toastify({
             text: `<div class="flex justify-start items-center gap-3">
-            <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+            <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
               <span class="icon-[line-md--alert-loop] size-6"></span>
             </div>
             ${error.message}</div>`,

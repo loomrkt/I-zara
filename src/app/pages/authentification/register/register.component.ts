@@ -53,7 +53,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       this.loadingToast = Toastify({
         text: `<div class="flex justify-start items-center gap-3">
-        <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+        <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
           <span class="icon-[line-md--loading-loop] size-6"></span>
         </div>
         Inscription en cours...</div>
@@ -75,8 +75,8 @@ export class RegisterComponent {
             this.loadingToast.hideToast();
             Toastify({
               text: `<div class="flex justify-start items-center gap-3">
-              <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
-                <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition]"></span>
+              <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+                <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition] size-6"></span>
               </div>
               Inscription réussie, veuillez vous connecter</div>`,
               className:
@@ -91,7 +91,7 @@ export class RegisterComponent {
             this.loadingToast.hideToast();
             Toastify({
               text: `<div class="flex justify-start items-center gap-3">
-              <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+              <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
                 <span class="icon-[line-md--alert-loop] size-6"></span>
               </div>
               ${error.message}</div>`,

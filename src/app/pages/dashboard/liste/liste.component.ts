@@ -29,7 +29,7 @@ export class ListeComponent {
   deleteFile(id: string): void {
     this.toastInstance = Toastify({
       text: `<div class="flex justify-start items-center gap-3">
-            <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+            <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
               <span class="icon-[line-md--loading-loop] size-6"></span>
             </div>
             Supression en cours...</div>`,
@@ -43,8 +43,8 @@ export class ListeComponent {
       next: (response) => {
         Toastify({
           text: `<div class="flex justify-start items-center gap-3">
-          <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
-            <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition]"></span>
+          <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+            <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition] size-6"></span>
           </div>
           ${response.message}</div>`,
           className:
@@ -59,7 +59,7 @@ export class ListeComponent {
         this.toastInstance.hideToast();
         Toastify({
           text: `<div class="flex justify-start items-center gap-3">
-          <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+          <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
             <span class="icon-[line-md--alert-loop] size-6"></span>
           </div>
           ${error.message}</div>`,
