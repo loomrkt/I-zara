@@ -53,13 +53,5 @@
              placeholder width="781" height="781" priority/>
     </div>
   </div>
-  @if (progress < 100) {
-
-    <p>Progression: {{ progress  }}%</p>
-  }
-    <progress [value]="progress" max="100"></progress>
-  @if (progress === 100){
-    <p>Upload terminé!</p>
-  }    
   <app-liste></app-liste>
 </div>
