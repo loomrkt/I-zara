@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { ListeComponent } from './liste/liste.component';
 import {
   FormControl,
@@ -13,6 +13,7 @@ import {
   ImageLoaderConfig,
   NgOptimizedImage,
 } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +33,9 @@ import {
     },
   ],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnDestroy {
+  progress: number = 0;
+  private progressSubscription!: Subscription;
   private filesService = inject(FilesService);
   toastifyInstance: any;
   filename = '';
@@ -40,6 +43,12 @@ export class DashboardComponent {
     titre: new FormControl('', [Validators.required]),
     file: new FormControl(null, [Validators.required]),
   });
+
+  ngOnDestroy() {
+    if (this.progressSubscription) {
+      this.progressSubscription.unsubscribe(); // Se désabonner quand le composant est détruit
+    }
+  }
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];
@@ -64,43 +73,50 @@ export class DashboardComponent {
         duration: -1,
         escapeMarkup: false,
       }).showToast();
-      this.filesService.createFile(titre!, file!).subscribe(
-        (response) => {
-          Toastify({
-            text: `<div class="flex justify-start items-center gap-3">
+      this.progressSubscription = this.filesService
+        .createFile(titre!, file!)
+        .subscribe(
+          (response) => {
+            Toastify({
+              text: `<div class="flex justify-start items-center gap-3">
           <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
             <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition] size-6"></span>
           </div> 
           Envoye effecuter avec succes!
           </div>`,
-            className:
-              'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border  rounded-xl shadow-lg [&>.toast-close]:hidden bg-emerald-500  p-4',
-            duration: 3000,
-            close: true,
-            escapeMarkup: false,
-          }).showToast();
-          // Reset the form
-          this.filesForm.reset();
-          this.filename = '';
-          this.toastifyInstance.hideToast();
-        },
-        (error) => {
-          this.toastifyInstance.hideToast();
-          Toastify({
-            text: `<div class="flex justify-start items-center gap-3">
+              className:
+                'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border  rounded-xl shadow-lg [&>.toast-close]:hidden bg-emerald-500  p-4',
+              duration: 3000,
+              close: true,
+              escapeMarkup: false,
+            }).showToast();
+            // Reset the form
+            this.filesForm.reset();
+            this.filename = '';
+            this.toastifyInstance.hideToast();
+          },
+          (error) => {
+            this.toastifyInstance.hideToast();
+            Toastify({
+              text: `<div class="flex justify-start items-center gap-3">
             <div class=" inline-block size-6 border-current border-t-transparent text-white rounded-full" >
               <span class="icon-[line-md--alert-loop] size-6"></span>
             </div>
             ${error.message}</div>`,
-            className:
-              'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border  rounded-xl shadow-lg [&>.toast-close]:hidden bg-red-800 border-red-700  p-4',
-            duration: 3000,
-            close: true,
-            escapeMarkup: false,
-          }).showToast();
-          console.error('File upload failed', error);
-        }
-      );
+              className:
+                'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border  rounded-xl shadow-lg [&>.toast-close]:hidden bg-red-800 border-red-700  p-4',
+              duration: 3000,
+              close: true,
+              escapeMarkup: false,
+            }).showToast();
+            console.error('File upload failed', error);
+          }
+        );
     }
+  }
+
+  // Méthode pour afficher la progression dans le template
+  trackProgress(progress: number) {
+    this.progress = progress;
   }
 }
