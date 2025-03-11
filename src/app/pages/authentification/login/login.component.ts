@@ -32,20 +32,38 @@ export class LoginComponent {
     ]),
   });
   showPassword = false;
-  errorMessage = '';
+  loadingToast: any;
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+      this.loadingToast = Toastify({
+        text: `<div class="flex justify-start items-center gap-3">
+        <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+          <span class="icon-[line-md--loading-loop] size-6"></span>
+        </div>
+        Connecion en cours...</div>
+`,
+
+        className:
+          'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border rounded-xl shadow-lg [&>.toast-close]:hidden bg-gray-950 p-4',
+        duration: -1,
+        close: true,
+        escapeMarkup: false,
+      }).showToast();
       this.authService
         .login(this.loginForm.value.email!, this.loginForm.value.password!)
         .subscribe({
           next: (response) => {
+            this.loadingToast.hideToast();
             Toastify({
-              text: response.message,
+              text: `<div class="flex justify-start items-center gap-3">
+              <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+                <span class="icon-[line-md--circle-twotone-to-confirm-circle-transition]"></span>
+              </div>
+              Connexion bien effectuer</div>`,
               className:
-                'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border  rounded-xl shadow-lg [&>.toast-close]:hidden bg-teal-500 bg-teal-400  p-4',
+                'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border  rounded-xl shadow-lg [&>.toast-close]:hidden bg-emerald-500  p-4',
               duration: 3000,
               close: true,
               escapeMarkup: false,
@@ -53,9 +71,13 @@ export class LoginComponent {
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
-            this.errorMessage = error.message;
+            this.loadingToast.hideToast();
             Toastify({
-              text: this.errorMessage,
+              text: `<div class="flex justify-start items-center gap-3">
+              <div class="animate-spin inline-block size-6 border-current border-t-transparent text-white rounded-full" >
+                <span class="icon-[line-md--alert-loop] size-6"></span>
+              </div>
+              ${error.message}</div>`,
               className:
                 'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border  rounded-xl shadow-lg [&>.toast-close]:hidden bg-red-800 border-red-700  p-4',
               duration: 3000,

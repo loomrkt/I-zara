@@ -5,11 +5,10 @@ import {
   IMAGE_LOADER,
   ImageLoaderConfig,
 } from '@angular/common';
-import { LoaderLayoutAuthComponent } from './loaderLayoutAuth/loaderLayoutAuth.component';
 
 @Component({
   selector: 'app-layout-auth',
-  imports: [RouterOutlet, NgOptimizedImage, LoaderLayoutAuthComponent],
+  imports: [RouterOutlet, NgOptimizedImage],
   templateUrl: './layout-auth.component.html',
   styles: ``,
   providers: [
