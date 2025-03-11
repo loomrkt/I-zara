@@ -26,7 +26,7 @@
               </div>
             </div>
             @if (filesForm.get('titre')?.invalid && filesForm.get('titre')?.touched) {
-              <small class="error">Title is required.</small>
+              <div class="text-red-500 text-xs">Title is required.</div>
             }
           </div>
           <label for="file" class="w-full py-10 flex bg-[#3767ea]/15 text-[#3767ea]  justify-center items-center cursor-pointer rounded-lg mt-4">
@@ -34,14 +34,14 @@
               <span class="icon-[material-symbols--add-circle] size-14"></span>
               <div class="flex items-center justify-center font-extralight mt-2 text-center">
                 <span>@if (filename !== '') {
-                <span>{{filename}}</span>  
+                <span class="break-words text-balance">{{filename}}</span>  
                 } @else {Click to upload image}</span>
               </div>
             </div>
             <input id="file" type="file" class="hidden" (change)="onFileSelected($event)">
           </label>
           @if (filesForm.get('file')?.invalid && filesForm.get('file')?.touched) {
-            <small class="error">File is required.</small>
+            <div class="text-red-500 text-xs">File is required.</div>
           }
           <input type="submit" value="Envoyer" class="w-full mt-4 bg-[#3767ea] text-white  justify-center items-center cursor-pointer rounded-lg px-4 py-2"/>
         </form>

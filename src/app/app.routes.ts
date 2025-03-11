@@ -19,6 +19,7 @@ export const routes: Routes = [
     path: '',
     component: LayoutAuthComponent,
     title: 'IZara - Authentification',
+    canActivate: [noAuthGuard],
     children: [
       {
         path: '',
@@ -38,6 +39,7 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         title: 'IZara - Dashboard',
+        canActivate: [authGuard],
       },
     ],
   },
