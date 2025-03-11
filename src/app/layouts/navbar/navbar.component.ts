@@ -1,5 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import {
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+  NgOptimizedImage,
+} from '@angular/common';
 import { ThemeControllerComponent } from '../../components/theme-controller/theme-controller.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { HSDropdown } from 'preline/preline';
@@ -12,6 +16,17 @@ import Toastify from 'toastify-js';
   imports: [NgOptimizedImage, ThemeControllerComponent],
   templateUrl: './navbar.component.html',
   styles: ``,
+  providers: [
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        const [path, token] = config.src.split('?token=');
+        return `https://firebasestorage.googleapis.com/v0/b/multimediart-f509c.appspot.com/o/assets%2F${encodeURIComponent(
+          path
+        )}?alt=media&token=${token}`;
+      },
+    },
+  ],
 })
 export class NavbarComponent {
   @ViewChild('dropdownTrigger') dropdownTrigger: ElementRef | undefined;

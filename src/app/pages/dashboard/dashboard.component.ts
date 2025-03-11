@@ -8,13 +8,29 @@ import {
 } from '@angular/forms';
 import { FilesService } from '../../services/files/files.service';
 import Toastify from 'toastify-js';
+import {
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+  NgOptimizedImage,
+} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ListeComponent, ReactiveFormsModule],
+  imports: [ListeComponent, ReactiveFormsModule, NgOptimizedImage],
   templateUrl: './dashboard.component.html',
   styles: ``,
+  providers: [
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        const [path, token] = config.src.split('?token=');
+        return `https://firebasestorage.googleapis.com/v0/b/multimediart-f509c.appspot.com/o/assets%2F${encodeURIComponent(
+          path
+        )}?alt=media&token=${token}`;
+      },
+    },
+  ],
 })
 export class DashboardComponent {
   private filesService = inject(FilesService);

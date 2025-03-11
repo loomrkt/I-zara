@@ -1,16 +1,27 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {NgOptimizedImage} from "@angular/common";
+import {
+  NgOptimizedImage,
+  IMAGE_LOADER,
+  ImageLoaderConfig,
+} from '@angular/common';
+import { LoaderLayoutAuthComponent } from './loaderLayoutAuth/loaderLayoutAuth.component';
 
 @Component({
   selector: 'app-layout-auth',
-    imports: [
-        RouterOutlet,
-        NgOptimizedImage
-    ],
+  imports: [RouterOutlet, NgOptimizedImage, LoaderLayoutAuthComponent],
   templateUrl: './layout-auth.component.html',
-  styles: ``
+  styles: ``,
+  providers: [
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        const [path, token] = config.src.split('?token=');
+        return `https://firebasestorage.googleapis.com/v0/b/multimediart-f509c.appspot.com/o/assets%2F${encodeURIComponent(
+          path
+        )}?alt=media&token=${token}`;
+      },
+    },
+  ],
 })
-export class LayoutAuthComponent {
-
-}
+export class LayoutAuthComponent {}
