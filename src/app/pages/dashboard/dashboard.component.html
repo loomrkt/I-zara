@@ -30,13 +30,15 @@
             }
           </div>
           <label for="file" class="w-full py-10 flex bg-[#3767ea]/15 text-[#3767ea]  justify-center items-center cursor-pointer rounded-lg mt-4">
-            <div class="flex items-center justify-center flex-col">
+            <div class="flex items-center justify-center flex-col max-w-full">
               <span class="icon-[material-symbols--add-circle] size-14"></span>
-              <div class="flex items-center justify-center font-extralight mt-2 text-center">
-                <span>@if (filename !== '') {
-                <span class="break-words text-balance">{{filename}}</span>  
-                } @else {Click to upload image}</span>
-              </div>
+              <p class="flex items-center justify-center font-extralight mt-2 break-all w-full px-4 line-clamp-4">
+                @if (filename !== '') {
+                  <!-- {{filename.substring(0,20)}}...{{filename.substring(filename.lastIndexOf('.') + 1)}} -->
+                   
+                  {{ filename.length < 20 ? filename.substring(0,filename.lastIndexOf('.')) : filename.substring(0,20) + "..." }}.{{ filename.split('.').pop() }}
+                } @else {Click to upload image}
+              </p>
             </div>
             <input id="file" type="file" class="hidden" (change)="onFileSelected($event)">
           </label>
@@ -55,3 +57,4 @@
   </div>
   <app-liste></app-liste>
 </div>
+
