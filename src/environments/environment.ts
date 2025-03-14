@@ -1,3 +1,3 @@
 export const environment = {
-  backendUrl: 'https://courageous-art-production.up.railway.app',
+  backendUrl: 'https://izara-back-node-ts.vercel.app',
 };
