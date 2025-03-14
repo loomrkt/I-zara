@@ -66,6 +66,21 @@ export class DashboardComponent {
       duration: -1,
       escapeMarkup: false,
     }).showToast();
+
+    // Suivi de la progression de compression et d'upload
+    this.filesService.getCompressProgress().subscribe({
+      next: (value) => {
+        this.progressCompression = value;
+        this.updateToast();
+      },
+    });
+
+    this.filesService.getUploadProgress().subscribe({
+      next: (value) => {
+        this.progress = value;
+        this.updateToast();
+      },
+    });
   }
 
   updateToast() {
@@ -110,22 +125,6 @@ export class DashboardComponent {
 
       this.createToast();
 
-      this.filesService.getProgress().subscribe({
-        next: (progress) => {
-          if (progress.type === 'compress') {
-            this.progressCompression = progress.data.progress;
-            this.updateToast();
-            console.log(progress.data.progress);
-          }
-          if (progress.type === 'upload') {
-            this.progress = progress.data.progress;
-            this.updateToast();
-            console.log(progress.data.progress);
-          }
-        },
-        error: (err) => console.error(err),
-      });
-
       this.filesService.createFile(titre!, file!).subscribe(
         (response) => {
           Toastify({
@@ -151,14 +150,12 @@ export class DashboardComponent {
         },
         (error) => {
           this.toastifyInstance.hideToast();
-          const errorMessage =
-            error.error?.error || "Erreur inconnue lors de l'upload";
           Toastify({
             text: `<div class="flex justify-start items-center gap-3">
               <div class="inline-block size-6 border-current border-t-transparent text-white rounded-full">
                 <span class="icon-[line-md--alert-loop] size-6"></span>
               </div>
-              ${errorMessage}</div>`,
+              ${error.message}</div>`,
             className:
               'z-[9999] hs-toastify-on:opacity-100 opacity-0 fixed -top-10 end-10 z-90 transition-all duration-300 w-72 text-sm text-white border rounded-xl shadow-lg [&>.toast-close]:hidden bg-red-800 border-red-700 p-4',
             duration: 3000,
