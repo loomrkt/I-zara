@@ -29,7 +29,8 @@ export class FilesService {
   private initSSE() {
     const connect = () => {
       this.eventSource = new EventSource(
-        `${this.apiUrl}/sse/${this.sseClientId}`
+        `${this.apiUrl}/sse/${this.sseClientId}`,
+        { withCredentials: true }
       );
 
       this.eventSource.addEventListener('compressProgress', (e) => {
@@ -50,7 +51,11 @@ export class FilesService {
 
       this.eventSource.onerror = (e) => {
         console.error('SSE Error:', e);
+        console.log('Ready state:', this.eventSource.readyState);
+
+        // Reconnect only if the connection was closed unexpectedly
         if (this.eventSource.readyState === EventSource.CLOSED) {
+          console.log('Reconnecting in 3 seconds...');
           setTimeout(() => connect(), 3000);
         }
       };
